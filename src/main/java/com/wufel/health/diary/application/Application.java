@@ -1,4 +1,4 @@
-package com.wufel.health.diary;
+package com.wufel.health.diary.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
