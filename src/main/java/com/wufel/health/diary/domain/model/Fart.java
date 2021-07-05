@@ -1,34 +1,33 @@
 package com.wufel.health.diary.domain.model;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 
-public class Fart {
+@Entity
+@Table(name = "fart")
+public class Fart extends BaseEntity {
 
-    private Long id;
+    @Column(name = "timestamp")
     private Timestamp timestamp;
-    private com.wufel.fartDiary.domain.model.Smelliness smelliness;
+    @Column(name = "smelliness")
+    private Smelliness smelliness;
+    @Column(name = "loudness")
     private Loudness loudness;
 
+    public Fart(Integer id, Timestamp timestamp, Smelliness smelliness, Loudness loudness) {
+        super(id);
+        this.timestamp = timestamp;
+        this.smelliness = smelliness;
+        this.loudness = loudness;
+    }
+
     public Fart(FartBuilder builder) {
-        this.id = builder.id;
+        super(builder.id);
         this.timestamp = builder.timestamp;
         this.smelliness = builder.smelliness;
         this.loudness = builder.loudness;
-    }
-
-    private Fart(){}
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Timestamp getTimestamp() {
@@ -39,11 +38,11 @@ public class Fart {
         this.timestamp = timestamp;
     }
 
-    public com.wufel.fartDiary.domain.model.Smelliness getSmelliness() {
+    public Smelliness getSmelliness() {
         return smelliness;
     }
 
-    public void setSmelliness(com.wufel.fartDiary.domain.model.Smelliness smelliness) {
+    public void setSmelliness(Smelliness smelliness) {
         this.smelliness = smelliness;
     }
 
@@ -60,12 +59,12 @@ public class Fart {
     }
 
     public static class FartBuilder {
-        private Long id;
+        private Integer id;
         private Timestamp timestamp;
-        private com.wufel.fartDiary.domain.model.Smelliness smelliness;
+        private Smelliness smelliness;
         private Loudness loudness;
 
-        public FartBuilder setId(Long id) {
+        public FartBuilder setId(Integer id) {
             this.id = id;
             return this;
         }
@@ -75,7 +74,7 @@ public class Fart {
             return this;
         }
 
-        public FartBuilder setSmelliness(com.wufel.fartDiary.domain.model.Smelliness smelliness) {
+        public FartBuilder setSmelliness(Smelliness smelliness) {
             this.smelliness = smelliness;
             return this;
         }
@@ -88,21 +87,6 @@ public class Fart {
         public Fart build() {
             return new Fart(this);
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }
